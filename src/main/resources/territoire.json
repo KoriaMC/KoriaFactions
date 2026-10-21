@@ -1,0 +1,178 @@
+{
+  "claims": {
+    "mondes-mode": "BLACKLIST",
+    "mondes": ["minage"],
+    "puissance-par-claim": 1.0,
+    "max-par-faction": 0,
+    "rayon-max": 5,
+    "connectes": true,
+    "zone-tampon": 1,
+    "distance-min-spawn": 0,
+    "distance-min-safezone": 0,
+    "distance-min-warzone": 0,
+    "refus-si-ennemi-a-moins-de": 0,
+    "overclaim": {
+      "actif": true,
+      "cible-raidable": true,
+      "bordure-seulement": true,
+      "sans-connexion": true,
+      "prevenir-la-victime": true,
+      "annonce-globale": false
+    },
+    "supprimer-home-hors-territoire": true,
+    "supprimer-warps-hors-territoire": true,
+    "acces-par-chunk": true,
+    "acces-actions": [
+      "BUILD", "DESTROY", "CONTAINER", "DOOR", "BUTTON", "LEVER", "PRESSURE_PLATE", "USE_ITEM", "INTERACT", "ENTITY_INTERACT",
+      "SPAWNER"
+    ]
+  },
+  "zones": {
+    "wilderness": {
+      "nom": "Wilderness",
+      "description": "Zone libre",
+      "couleur": "&2",
+      "construire": true,
+      "detruire": true,
+      "utiliser": true,
+      "pvp": true,
+      "monstres": true,
+      "propagation-feu": true,
+      "mondes-construction-interdite": []
+    },
+    "safezone": {
+      "nom": "SafeZone",
+      "description": "Zone protégée, le PvP est désactivé",
+      "couleur": "&6",
+      "construire": false,
+      "detruire": false,
+      "utiliser": false,
+      "toujours-utilisables": ["ENDER_CHEST", "WORKBENCH", "WOODEN_DOOR", "STONE_BUTTON", "WOOD_BUTTON"],
+      "pvp": false,
+      "degats-joueurs": false,
+      "faim": false,
+      "monstres": false,
+      "propagation-feu": false,
+      "bloquer-liquides": true,
+      "ender-pearls": true,
+      "bloquer-potions-negatives": true
+    },
+    "warzone": {
+      "nom": "WarZone",
+      "description": "Zone de combat, restez sur vos gardes !",
+      "couleur": "&4",
+      "construire": false,
+      "detruire": false,
+      "utiliser": false,
+      "toujours-utilisables": ["ENDER_CHEST", "WORKBENCH"],
+      "pvp": true,
+      "tir-entre-membres": false,
+      "degats-de-chute": true,
+      "faim": true,
+      "monstres": false,
+      "propagation-feu": false,
+      "bloquer-liquides": true,
+      "ender-pearls": true
+    }
+  },
+  "protection": {
+    "degats-si-construction": 0.0,
+    "actions-si-raidable": [],
+    "ender-pearls-interdites": ["ENEMY"],
+    "proteger-pistons": true,
+    "bloquer-liquides": true,
+    "entites-sans-degats-de-blocs": ["ENDERMAN", "SILVERFISH", "WITHER", "ZOMBIE"],
+    "monstres-raisons-controlees": ["NATURAL", "JOCKEY", "CHUNK_GEN", "VILLAGE_INVASION", "REINFORCEMENTS", "NETHER_PORTAL"],
+    "commandes-bloquees": {
+      "ENEMY": ["sethome", "home", "homes", "spawn", "tpa", "tpaccept", "tpahere", "back", "warp"],
+      "OWN": [],
+      "WILDERNESS": [],
+      "SAFEZONE": [],
+      "WARZONE": ["sethome"]
+    }
+  },
+  "explosions": {
+    "seulement-blocs": true,
+    "wilderness": { "TNT": true, "CREEPER": true, "FIREBALL": true, "WITHER": true, "OTHER": true },
+    "safezone": { "TNT": false, "CREEPER": false, "FIREBALL": false, "WITHER": false, "OTHER": false },
+    "warzone": { "TNT": false, "CREEPER": false, "FIREBALL": false, "WITHER": false, "OTHER": false },
+    "faction-en-ligne": { "TNT": true, "CREEPER": false, "FIREBALL": true, "WITHER": true, "OTHER": true },
+    "faction-hors-ligne": { "TNT": false, "CREEPER": false, "FIREBALL": false, "WITHER": false, "OTHER": false },
+    "proteger-pacifiques": true
+  },
+  "blocs": {
+    "conteneurs": [
+      "CHEST", "TRAPPED_CHEST", "FURNACE", "BURNING_FURNACE", "DISPENSER", "DROPPER", "HOPPER", "BREWING_STAND", "BEACON",
+      "JUKEBOX"
+    ],
+    "portes": [
+      "WOODEN_DOOR", "SPRUCE_DOOR", "BIRCH_DOOR", "JUNGLE_DOOR", "ACACIA_DOOR", "DARK_OAK_DOOR", "TRAP_DOOR", "FENCE_GATE",
+      "SPRUCE_FENCE_GATE", "BIRCH_FENCE_GATE", "JUNGLE_FENCE_GATE", "DARK_OAK_FENCE_GATE", "ACACIA_FENCE_GATE"
+    ],
+    "boutons": ["STONE_BUTTON", "WOOD_BUTTON"],
+    "leviers": ["LEVER"],
+    "plaques": ["STONE_PLATE", "WOOD_PLATE", "GOLD_PLATE", "IRON_PLATE", "TRIPWIRE"],
+    "interactifs": [
+      "ANVIL", "ENCHANTMENT_TABLE", "DIODE_BLOCK_OFF", "DIODE_BLOCK_ON", "REDSTONE_COMPARATOR_OFF", "REDSTONE_COMPARATOR_ON",
+      "NOTE_BLOCK", "CAULDRON", "BED_BLOCK", "DRAGON_EGG", "CAKE_BLOCK", "FLOWER_POT", "DAYLIGHT_DETECTOR",
+      "DAYLIGHT_DETECTOR_INVERTED", "COMMAND", "SIGN_POST", "WALL_SIGN"
+    ],
+    "toujours-autorises": ["ENDER_CHEST", "WORKBENCH"],
+    "spawners": ["MOB_SPAWNER"],
+    "objets-restreints": [
+      "FLINT_AND_STEEL", "FIREBALL", "BUCKET", "WATER_BUCKET", "LAVA_BUCKET", "ARMOR_STAND", "MINECART", "STORAGE_MINECART",
+      "POWERED_MINECART", "EXPLOSIVE_MINECART", "HOPPER_MINECART", "BOAT", "INK_SACK:15", "PAINTING", "ITEM_FRAME", "MONSTER_EGG"
+    ]
+  },
+  "entites": {
+    "clic-droit-protege": [
+      "ITEM_FRAME", "ARMOR_STAND", "MINECART_CHEST", "MINECART_HOPPER", "MINECART_FURNACE", "LEASH_HITCH", "HORSE"
+    ],
+    "degats-proteges": ["ITEM_FRAME", "ARMOR_STAND", "PAINTING", "MINECART_CHEST", "MINECART_HOPPER"],
+    "animaux-proteges": []
+  },
+  "notifications": {
+    "actif": true,
+    "types": ["TOAST"],
+    "toast": {
+      "layout": "territoire",
+      "duree-ms": 3500,
+      "installer-layout": true,
+      "sans-client-koriamc": "ACTIONBAR",
+      "icones": {
+        "OWN": "minecraft:emerald",
+        "ENEMY": "minecraft:iron_sword",
+        "WILDERNESS": "minecraft:sapling",
+        "SAFEZONE": "minecraft:beacon",
+        "WARZONE": "minecraft:tnt"
+      }
+    },
+    "titre-apparition": 5,
+    "titre-duree": 30,
+    "titre-disparition": 10,
+    "actives-par-defaut": true
+  },
+  "carte": {
+    "largeur": 39,
+    "hauteur": 9,
+    "symboles": "\\/#?$%=&^ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890abcdeghjmnopqrsuvwxyz",
+    "symbole-joueur": "+",
+    "symbole-wilderness": "-",
+    "symbole-safezone": "+",
+    "symbole-warzone": "+",
+    "couleur-joueur": "&e",
+    "boussole": true,
+    "infos-au-survol": true,
+    "claim-au-clic": true,
+    "legende-max": 12,
+    "distance-max-claim-au-clic": 8
+  },
+  "seechunk": {
+    "actif": true,
+    "particule": "FLAME",
+    "intervalle-ticks": 20,
+    "hauteur-dessous": 2,
+    "hauteur-dessus": 4,
+    "espacement": 1
+  }
+}

@@ -1,0 +1,509 @@
+{
+  "principal": {
+    "titre": "&8Faction &7» &6{faction}",
+    "lignes": 5,
+    "fond": { "materiau": "STAINED_GLASS_PANE:7", "nom": " " },
+    "objets": {
+      "infos": {
+        "case": 4,
+        "materiau": "BANNER:1",
+        "nom": "&6&l{faction}",
+        "description": [
+          "&7{description}",
+          "",
+          "&7Chef : &f{leader}",
+          "&7Membres : &f{members_online}&7/&f{members}",
+          "&7Puissance : &f{power}&7/&f{max_power}",
+          "&7Points : &f{points}",
+          "&7Claims : &f{claims}&7/&f{max_claims}"
+        ],
+        "action": "COMMANDE:{label} show"
+      },
+      "quetes": {
+        "case": 13,
+        "materiau": "BOOK_AND_QUILL",
+        "nom": "&bQuêtes de faction",
+        "description": ["&7Les quêtes de la semaine", "&7de votre faction"],
+        "action": "COMMANDE:{label} quests"
+      },
+      "membres": {
+        "case": 19,
+        "materiau": "SKULL_ITEM:3",
+        "tete": "{player}",
+        "nom": "&eMembres",
+        "description": ["&7Gérer les membres de la faction"],
+        "action": "MENU:membres"
+      },
+      "permissions": {
+        "case": 20,
+        "materiau": "COMMAND",
+        "nom": "&ePermissions",
+        "description": ["&7Configurer les permissions", "&7des rôles et des joueurs"],
+        "action": "MENU:permissions"
+      },
+      "flags": {
+        "case": 21,
+        "materiau": "BANNER:10",
+        "nom": "&eFlags",
+        "description": ["&7Paramètres de la faction"],
+        "action": "MENU:flags"
+      },
+      "ameliorations": {
+        "case": 22,
+        "materiau": "EXP_BOTTLE",
+        "nom": "&eAméliorations",
+        "description": ["&7Améliorer la faction"],
+        "brillant": true,
+        "action": "MENU:ameliorations"
+      },
+      "warps": {
+        "case": 23,
+        "materiau": "EYE_OF_ENDER",
+        "nom": "&eWarps",
+        "description": ["&7Se téléporter aux warps"],
+        "action": "MENU:warps"
+      },
+      "coffre": {
+        "case": 24,
+        "materiau": "ENDER_CHEST",
+        "nom": "&eCoffre de faction",
+        "description": ["&7Ouvrir le coffre partagé", "&8(à débloquer dans les améliorations)"],
+        "action": "COMMANDE:{label} chest"
+      },
+      "home": {
+        "case": 25,
+        "materiau": "BED",
+        "nom": "&eHome",
+        "description": ["&7Se téléporter au home"],
+        "action": ["FERMER", "COMMANDE:{label} home"]
+      },
+      "carte": {
+        "case": 30,
+        "materiau": "MAP",
+        "nom": "&eCarte",
+        "description": ["&7Afficher la carte des territoires"],
+        "action": ["FERMER", "COMMANDE:{label} map"]
+      },
+      "classement": {
+        "case": 32,
+        "materiau": "GOLD_INGOT",
+        "nom": "&eClassement",
+        "description": ["&7Voir le classement des factions"],
+        "action": ["FERMER", "COMMANDE:{label} top"]
+      },
+      "fermer": { "case": 40, "materiau": "BARRIER", "nom": "&cFermer", "action": "FERMER" }
+    }
+  },
+  "sans-faction": {
+    "titre": "&8Factions",
+    "lignes": 3,
+    "fond": { "materiau": "STAINED_GLASS_PANE:7", "nom": " " },
+    "objets": {
+      "creer": {
+        "case": 11,
+        "materiau": "BANNER:14",
+        "nom": "&aCréer une faction",
+        "description": ["&7Utilisez &f/{label} create <nom>"],
+        "action": ["FERMER", "MESSAGE:&7Tapez &f/{label} create <nom> &7pour créer votre faction."]
+      },
+      "liste": { "case": 13, "materiau": "BOOK", "nom": "&eListe des factions", "action": ["FERMER", "COMMANDE:{label} list"] },
+      "classement": { "case": 15, "materiau": "GOLD_INGOT", "nom": "&eClassement", "action": ["FERMER", "COMMANDE:{label} top"] }
+    }
+  },
+  "membres": {
+    "titre": "&8Membres &7» &6{faction}",
+    "lignes": 5,
+    "fond": { "materiau": "STAINED_GLASS_PANE:7", "nom": " " },
+    "cases": [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34],
+    "modele-membre": {
+      "materiau": "SKULL_ITEM:3",
+      "tete": "{member}",
+      "nom": "{role_color}{role_prefix}{member}",
+      "description": [
+        "&7Rôle : {role_color}{role}",
+        "&7Titre : &f{title}",
+        "&7Puissance : &f{power}&7/&f{max_power}",
+        "&7Statut : {status}",
+        "&7Dernière connexion : &f{last_seen}",
+        "",
+        "&eClic gauche &7» Promouvoir",
+        "&eClic droit &7» Rétrograder",
+        "&cShift + clic &7» Expulser"
+      ],
+      "clic-gauche": ["COMMANDE:{label} promote {member}", "ACTUALISER"],
+      "clic-droit": ["COMMANDE:{label} demote {member}", "ACTUALISER"],
+      "shift-clic": ["COMMANDE:{label} kick {member}", "ACTUALISER"],
+      "statut-en-ligne": "&aEn ligne",
+      "statut-hors-ligne": "&cHors ligne"
+    },
+    "precedent": { "case": 39, "materiau": "ARROW", "nom": "&ePage précédente", "action": "PAGE-PRECEDENTE" },
+    "suivant": { "case": 41, "materiau": "ARROW", "nom": "&ePage suivante", "action": "PAGE-SUIVANTE" },
+    "retour": { "case": 40, "materiau": "BARRIER", "nom": "&cRetour", "action": "MENU:principal" }
+  },
+  "permissions": {
+    "ecran-koriamc": {
+      "layout": "permissions_faction",
+      "layout-liste": "permissions_faction_liste",
+      "layout-choix": "permissions_faction_choix",
+      "layout-joueur": "permissions_faction_joueur",
+      "installer-layout": true,
+      "sous-titre-role": "&7Rôle : {role_color}{subject}",
+      "sous-titre-joueur": "&7Joueur : {role_color}{member} &8({role})",
+      "infobulle-role": ["{state}", "{locked}", "&eCliquez pour basculer"],
+      "sous-titre-roles": "&7Choisis un rôle",
+      "sous-titre-joueurs": "&7Choisis un membre",
+      "aucun-membre": "&7Aucun membre à modifier.",
+      "sous-titre-copie": "&7Configuration par défaut de &f{member} &7: choisis le rôle à copier",
+      "infobulle-choix-copie": ["{subject}", "&7{member} reçoit les permissions", "&7de ce rôle.", "", "&eCliquez pour appliquer"],
+      "infobulle-choix-role": ["{subject}", "&eCliquez pour modifier ses permissions"],
+      "infobulle-choix-joueur": ["&f{member}", "&7Rôle : {role_color}{role}", "&7Permissions personnalisées : &f{custom}", "", "&eCliquez pour modifier"],
+      "infobulle-joueur": ["&7Rôle ({role}) : {role_state}", "&7{member} : {state}", "{locked}", "&eClic gauche &7» Autoriser / refuser", "&eClic droit &7» Revenir au rôle"]
+    },
+    "titre-choix": "&8Permissions &7» Choix",
+    "lignes-choix": 3,
+    "fond": { "materiau": "STAINED_GLASS_PANE:7", "nom": " " },
+    "objets": {
+      "COLEADER": {
+        "case": 10,
+        "materiau": "GOLD_HELMET",
+        "nom": "&6Co-Chefs",
+        "description": ["&7Cliquez pour modifier", "&7les permissions."],
+        "action": "MENU:permissions:COLEADER"
+      },
+      "OFFICER": {
+        "case": 11,
+        "materiau": "IRON_HELMET",
+        "nom": "&eOfficiers",
+        "description": ["&7Cliquez pour modifier", "&7les permissions."],
+        "action": "MENU:permissions:OFFICER"
+      },
+      "MEMBER": {
+        "case": 12,
+        "materiau": "CHAINMAIL_HELMET",
+        "nom": "&aMembres",
+        "description": ["&7Cliquez pour modifier", "&7les permissions."],
+        "action": "MENU:permissions:MEMBER"
+      },
+      "RECRUIT": {
+        "case": 13,
+        "materiau": "LEATHER_HELMET",
+        "nom": "&7Recrues",
+        "description": ["&7Cliquez pour modifier", "&7les permissions."],
+        "action": "MENU:permissions:RECRUIT"
+      },
+      "joueurs": {
+        "case": 16,
+        "materiau": "SKULL_ITEM:3",
+        "tete": "{player}",
+        "nom": "&bPar joueur",
+        "description": ["&7Donner ou retirer une permission", "&7à un membre précis."],
+        "action": "MENU:permissions-joueurs"
+      },
+      "retour": { "case": 22, "materiau": "BARRIER", "nom": "&cRetour", "action": "MENU:permissions-ecran" }
+    },
+    "titre-actions": "&8Permissions &7» {subject}",
+    "lignes-actions": 6,
+    "cases-actions": [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+      33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44
+    ],
+    "modele-action": {
+      "materiau-autorise": "{icone}",
+      "materiau-refuse": "{icone}",
+      "brillant-si-autorise": true,
+      "nom": "{state_color}{action}",
+      "description": ["&7{description}", "", "&7État : {state}", "{locked}", "&eCliquez pour basculer"],
+      "etat-oui": "&aAutorisé",
+      "etat-non": "&cRefusé",
+      "texte-verrouille": "&8(Verrouillé par le serveur)",
+      "clic": "BASCULER"
+    },
+    "retour-actions": { "case": 49, "materiau": "BARRIER", "nom": "&cRetour", "action": "MENU:permissions" },
+    "titre-joueurs": "&8Permissions &7» Joueurs",
+    "lignes-joueurs": 5,
+    "cases-joueurs": [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 31, 32, 33, 34],
+    "modele-joueur": {
+      "materiau": "SKULL_ITEM:3",
+      "tete": "{member}",
+      "nom": "{role_color}{member}",
+      "description": ["&7Rôle : {role_color}{role}", "&7Permissions personnalisées : &f{custom}", "", "&eCliquez pour modifier"],
+      "clic": "MENU:permissions-joueur:{member}"
+    },
+    "joueurs-precedent": { "case": 39, "materiau": "ARROW", "nom": "&ePage précédente", "action": "PAGE-PRECEDENTE" },
+    "joueurs-suivant": { "case": 41, "materiau": "ARROW", "nom": "&ePage suivante", "action": "PAGE-SUIVANTE" },
+    "joueurs-retour": { "case": 40, "materiau": "BARRIER", "nom": "&cRetour", "action": "MENU:permissions" },
+    "titre-actions-joueur": "&8Perms &7» {member}",
+    "modele-action-joueur": {
+      "materiau-autorise": "{icone}",
+      "materiau-refuse": "{icone}",
+      "brillant-si-personnalise": true,
+      "nom": "{state_color}{action}",
+      "description": [
+        "&7{description}",
+        "",
+        "&7Rôle ({role}) : {role_state}",
+        "&7{member} : {state}",
+        "{locked}",
+        "&eClic gauche &7» Autoriser / refuser",
+        "&eClic droit &7» Revenir au rôle"
+      ],
+      "etat-oui": "&aAutorisé",
+      "etat-non": "&cRefusé",
+      "etat-herite": "&7comme son rôle ({role_state}&7)",
+      "texte-verrouille": "&8(Verrouillé par le serveur)",
+      "clic-gauche": "BASCULER",
+      "clic-droit": "REINITIALISER"
+    },
+    "retour-actions-joueur": { "case": 49, "materiau": "BARRIER", "nom": "&cRetour", "action": "MENU:permissions-joueurs" }
+  },
+  "flags": {
+    "titre": "&8Flags &7» &6{faction}",
+    "lignes": 4,
+    "fond": { "materiau": "STAINED_GLASS_PANE:7", "nom": " " },
+    "cases": [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25],
+    "modele-flag": {
+      "materiau": "{icone}",
+      "brillant-si-actif": true,
+      "nom": "{state_color}{flag}",
+      "description": ["&7{description}", "", "&7État : {state}", "{editable}"],
+      "etat-oui": "&aActivé",
+      "etat-non": "&cDésactivé",
+      "texte-modifiable": "&eCliquez pour basculer",
+      "texte-verrouille": "&8(Modifiable uniquement par un administrateur)",
+      "clic": "BASCULER"
+    },
+    "retour": { "case": 31, "materiau": "BARRIER", "nom": "&cRetour", "action": "MENU:principal" }
+  },
+  "ameliorations": {
+    "titre": "&8Améliorations &7» &6{faction}",
+    "lignes": 4,
+    "fond": { "materiau": "STAINED_GLASS_PANE:7", "nom": " " },
+    "modele-amelioration": {
+      "materiau": "{icone}",
+      "brillant-si-max": true,
+      "nom": "{name} &7(Niv. {level}/{max_level})",
+      "description": [
+        "{description}", "", "&7Effet actuel : &a{current}", "&7Niveau suivant : &a{next}", "&7Coût : &6{cost}", "", "{status}"
+      ],
+      "statut-disponible": "&eCliquez pour acheter",
+      "statut-max": "&aNiveau maximum atteint",
+      "statut-sans-permission": "&cVous n'avez pas la permission",
+      "aucun": "Aucun",
+      "clic": "ACHETER"
+    },
+    "info-argent": { "case": 31, "materiau": "GOLD_INGOT", "nom": "&6Votre argent : &f{balance}" },
+    "retour": { "case": 35, "materiau": "BARRIER", "nom": "&cRetour", "action": "MENU:principal" }
+  },
+  "warps": {
+    "titre": "&8Warps &7» &6{faction}",
+    "lignes": 3,
+    "fond": { "materiau": "STAINED_GLASS_PANE:7", "nom": " " },
+    "cases": [10, 11, 12, 13, 14, 15, 16],
+    "modele-warp": {
+      "materiau": "EYE_OF_ENDER",
+      "nom": "&e{warp}",
+      "description": [
+        "&7Monde : &f{world}",
+        "&7Position : &f{x}, {y}, {z}",
+        "&7Protégé : {password}",
+        "",
+        "&eClic gauche &7» Se téléporter",
+        "&cShift + clic droit &7» Supprimer"
+      ],
+      "mot-de-passe-oui": "&cOui",
+      "mot-de-passe-non": "&aNon",
+      "clic-gauche": ["FERMER", "COMMANDE:{label} warp {warp}"],
+      "shift-clic-droit": ["COMMANDE:{label} delwarp {warp}", "ACTUALISER"]
+    },
+    "vide": {
+      "case": 13,
+      "materiau": "BARRIER",
+      "nom": "&cAucun warp",
+      "description": ["&7Créez-en un avec /{label} setwarp <nom>"]
+    },
+    "retour": { "case": 22, "materiau": "ARROW", "nom": "&cRetour", "action": "MENU:principal" }
+  },
+  "editeur": {
+    "titre-fichiers": "&8Configuration",
+    "lignes-fichiers": 3,
+    "fond": { "materiau": "STAINED_GLASS_PANE:7", "nom": " " },
+    "fichiers": {
+      "config": {
+        "case": 11,
+        "materiau": "COMMAND",
+        "nom": "&6config.json",
+        "description": ["&7Stockage, commandes, économie,", "&7chat, classements, journal, sons.", "", "&eClic : ouvrir"],
+        "action": "MENU:config:config"
+      },
+      "factions": {
+        "case": 12,
+        "materiau": "BANNER:1",
+        "nom": "&6factions.json",
+        "description": [
+          "&7Factions, rôles, permissions, flags,",
+          "&7puissance, PvP, home,",
+          "&7warps, coffre, améliorations.",
+          "",
+          "&eClic : ouvrir"
+        ],
+        "action": "MENU:config:factions"
+      },
+      "territoire": {
+        "case": 13,
+        "materiau": "GRASS",
+        "nom": "&6territoire.json",
+        "description": ["&7Claims, zones, protection,", "&7explosions, carte.", "", "&eClic : ouvrir"],
+        "action": "MENU:config:territoire"
+      },
+      "messages": {
+        "case": 14,
+        "materiau": "BOOK_AND_QUILL",
+        "nom": "&6messages.json",
+        "description": ["&7Tous les textes affichés", "&7aux joueurs.", "", "&eClic : ouvrir"],
+        "action": "MENU:config:messages"
+      },
+      "menus": {
+        "case": 15,
+        "materiau": "CHEST",
+        "nom": "&6menus.json",
+        "description": ["&7Apparence et clics", "&7de tous les menus.", "", "&eClic : ouvrir"],
+        "action": "MENU:config:menus"
+      },
+      "fermer": { "case": 22, "materiau": "BARRIER", "nom": "&cFermer", "action": "FERMER" }
+    },
+    "titre-section": "&8{file} &7» &f{section}",
+    "lignes-section": 6,
+    "cases-options": [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+      33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44
+    ],
+    "texte-defaut": "&8(valeur par défaut, absente du fichier)",
+    "texte-reinitialiser": "&8Ctrl + Q : revenir à la valeur par défaut",
+    "texte-supprimer": "&cCtrl + Q : supprimer cette entrée",
+    "mot-de-passe-masque": "******",
+    "liste-lignes-max": 8,
+    "liste-suite": "&8...",
+    "types": {
+      "section": {
+        "materiau": "CHEST",
+        "nom": "&6{key}",
+        "description": ["&7{doc}", "&8{count} option(s)", "", "&eClic : ouvrir", "{effacer}"],
+        "clic": "OUVRIR",
+        "ctrl-q": "DEFAUT"
+      },
+      "section-libre": {
+        "materiau": "ENDER_CHEST",
+        "nom": "&6{key}",
+        "description": ["&7{doc}", "&8{count} option(s)", "", "&eClic : ouvrir", "{effacer}"],
+        "clic": "OUVRIR",
+        "ctrl-q": "DEFAUT"
+      },
+      "oui": {
+        "materiau": "INK_SACK:10",
+        "nom": "&f{key}",
+        "description": ["&7{doc}", "&7Valeur : &aOui", "", "&eClic : désactiver", "{defaut}", "{effacer}"],
+        "clic": "BASCULER",
+        "ctrl-q": "DEFAUT"
+      },
+      "non": {
+        "materiau": "INK_SACK:8",
+        "nom": "&f{key}",
+        "description": ["&7{doc}", "&7Valeur : &cNon", "", "&eClic : activer", "{defaut}", "{effacer}"],
+        "clic": "BASCULER",
+        "ctrl-q": "DEFAUT"
+      },
+      "nombre": {
+        "materiau": "GOLD_NUGGET",
+        "nom": "&f{key}",
+        "description": [
+          "&7{doc}",
+          "&7Valeur : &f{value}",
+          "",
+          "&eClic gauche : &f+{step} &8| &eClic droit : &f-{step}",
+          "&eShift + clic : &f±{big}",
+          "&eQ : saisir au clavier",
+          "{defaut}",
+          "{effacer}"
+        ],
+        "clic-gauche": "AUGMENTER:1",
+        "clic-droit": "DIMINUER:1",
+        "shift-clic-gauche": "AUGMENTER:10",
+        "shift-clic-droit": "DIMINUER:10",
+        "touche-q": "SAISIR",
+        "ctrl-q": "DEFAUT"
+      },
+      "texte": {
+        "materiau": "PAPER",
+        "nom": "&f{key}",
+        "description": ["&7{doc}", "&7Valeur : &f{value}", "", "&eClic : modifier au clavier", "{defaut}", "{effacer}"],
+        "clic": "SAISIR",
+        "ctrl-q": "DEFAUT"
+      },
+      "choix": {
+        "materiau": "NAME_TAG",
+        "nom": "&f{key}",
+        "description": [
+          "&7{doc}",
+          "&7Valeur : &f{value}",
+          "&8Choix : {choices}",
+          "",
+          "&eClic gauche / droit : valeur suivante / précédente",
+          "&eQ : saisir au clavier",
+          "{defaut}",
+          "{effacer}"
+        ],
+        "clic-gauche": "CHOIX-SUIVANT",
+        "clic-droit": "CHOIX-PRECEDENT",
+        "touche-q": "SAISIR",
+        "ctrl-q": "DEFAUT"
+      },
+      "liste": {
+        "materiau": "BOOK",
+        "nom": "&f{key}",
+        "description": [
+          "&7{doc}",
+          "&7Liste de &f{count} &7valeur(s) :",
+          "&8- &f{list}",
+          "",
+          "&eClic gauche : ajouter une valeur",
+          "&eClic droit : retirer la dernière",
+          "&eShift + clic : remplacer toute la liste",
+          "{defaut}",
+          "{effacer}"
+        ],
+        "clic-gauche": "AJOUTER",
+        "clic-droit": "RETIRER",
+        "shift-clic": "REMPLACER",
+        "ctrl-q": "DEFAUT"
+      },
+      "complexe": {
+        "materiau": "BARRIER",
+        "nom": "&f{key}",
+        "description": ["&7{doc}", "&cModifiable uniquement dans le fichier", "{effacer}"],
+        "ctrl-q": "DEFAUT"
+      }
+    },
+    "info": {
+      "case": 49,
+      "materiau": "BOOK",
+      "nom": "&e{file}",
+      "description": [
+        "&7Section : &f{path}",
+        "&7{doc}",
+        "",
+        "&7Chaque modification est enregistrée",
+        "&7dans le fichier et appliquée aussitôt."
+      ]
+    },
+    "retour": { "case": 45, "materiau": "ARROW", "nom": "&cRetour", "action": "RETOUR" },
+    "precedent": { "case": 48, "materiau": "PAPER", "nom": "&ePage précédente", "action": "PAGE-PRECEDENTE" },
+    "suivant": { "case": 50, "materiau": "PAPER", "nom": "&ePage suivante", "action": "PAGE-SUIVANTE" },
+    "ajouter": {
+      "case": 53,
+      "materiau": "EMERALD",
+      "nom": "&aAjouter une entrée",
+      "description": ["&7Copie la dernière entrée", "&7sous un nouveau nom."],
+      "action": "AJOUTER-ENTREE"
+    }
+  }
+}

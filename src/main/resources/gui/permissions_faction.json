@@ -1,0 +1,101 @@
+{
+  "type": "SCREEN",
+  "note": "Permissions de faction (plugin KoriaFactions, /f perms) : configuration par défaut (rôles) ou permissions d'un joueur. Textures : koriamc:textures/gui/permission_faction.png, Configuration_par_defaut.png, guide_des_permissions.png. Variable : %var_factions_commande% (commande du plugin, f par défaut).",
+  "width": 320,
+  "height": 193,
+  "anchor": "CENTER",
+  "scaleMode": "ADAPT",
+  "referenceWidth": 520,
+  "referenceHeight": 320,
+  "background": "#90000000",
+  "blur": true,
+  "closeOnEscape": true,
+  "openSound": "random.pop",
+  "closeSound": "",
+  "openAnimation": "ZOOM",
+  "animationDuration": 260,
+  "elements": [
+    {
+      "type": "IMAGE",
+      "id": "fond",
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 193,
+      "source": "koriamc:textures/gui/permission_faction.png",
+      "regionX": 0,
+      "regionY": 31,
+      "regionWidth": 1536,
+      "regionHeight": 928,
+      "smooth": true
+    },
+    {
+      "type": "IMAGE",
+      "id": "configuration_par_defaut",
+      "x": 27,
+      "y": 55,
+      "width": 123,
+      "height": 76,
+      "source": "koriamc:textures/gui/Configuration_par_defaut.png",
+      "regionX": 29,
+      "regionY": 43,
+      "regionWidth": 1529,
+      "regionHeight": 915,
+      "smooth": true,
+      "hoverScale": 1.05,
+      "hoverSound": "random.click",
+      "clickSound": true,
+      "tooltip": "&6Configuration par défaut\n&7Permissions de chaque rôle\n&7(co-chefs, officiers, membres, recrues).\n\n&eCliquez pour ouvrir",
+      "actions": [
+        "command: %var_factions_commande% menu permissions-roles"
+      ]
+    },
+    {
+      "type": "IMAGE",
+      "id": "permissions_joueur",
+      "x": 170,
+      "y": 55,
+      "width": 123,
+      "height": 76,
+      "source": "koriamc:textures/gui/guide_des_permissions.png",
+      "regionX": 19,
+      "regionY": 4,
+      "regionWidth": 1543,
+      "regionHeight": 961,
+      "smooth": true,
+      "hoverScale": 1.05,
+      "hoverSound": "random.click",
+      "clickSound": true,
+      "tooltip": "&6Les permissions d'un joueur\n&7Donner ou retirer une permission\n&7à un membre précis.\n\n&eCliquez pour choisir un membre",
+      "actions": [
+        "command: %var_factions_commande% menu permissions-joueurs"
+      ]
+    },
+    {
+      "type": "TEXT",
+      "id": "retour",
+      "x": 135,
+      "y": 145,
+      "width": 50,
+      "height": 7,
+      "scale": 0.6,
+      "text": "&f&nRetour",
+      "align": "CENTER"
+    },
+    {
+      "type": "RECT",
+      "id": "retour_clic",
+      "x": 135,
+      "y": 144,
+      "width": 50,
+      "height": 9,
+      "color": "#00000000",
+      "hoverColor": "#30FFFFFF",
+      "radius": 2,
+      "clickSound": true,
+      "actions": [
+        "command: %var_factions_commande% menu"
+      ]
+    }
+  ]
+}

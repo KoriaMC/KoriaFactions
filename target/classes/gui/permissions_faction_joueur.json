@@ -1,0 +1,188 @@
+{
+  "type": "SCREEN",
+  "note": "Permissions personnelles d'un joueur (plugin KoriaFactions) : clic gauche = autoriser / refuser, clic droit = revenir au rôle ; Configuration par défaut = copier les permissions d'un rôle. Grille scrollable (list:factions_perms : id, l1, l2, couleur, infobulle). Variables : %var_factions_commande%, %var_factions_perms_cible%, %var_factions_perms_sous_titre%, %var_factions_perms_retour%, %var_factions_perms_erreur% (+ _oui). Textures : permission_faction.png, Panneau.png, Configuration_par_defaut_en_or.png.",
+  "width": 320,
+  "height": 193,
+  "anchor": "CENTER",
+  "scaleMode": "ADAPT",
+  "referenceWidth": 520,
+  "referenceHeight": 320,
+  "background": "#90000000",
+  "blur": true,
+  "closeOnEscape": true,
+  "openSound": "random.pop",
+  "closeSound": "",
+  "openAnimation": "ZOOM",
+  "animationDuration": 260,
+  "elements": [
+    {
+      "type": "IMAGE",
+      "id": "fond",
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 193,
+      "source": "koriamc:textures/gui/permission_faction.png",
+      "regionX": 0,
+      "regionY": 31,
+      "regionWidth": 1536,
+      "regionHeight": 928,
+      "smooth": true
+    },
+    {
+      "type": "TEXT",
+      "id": "sous_titre",
+      "x": 60,
+      "y": 33,
+      "width": 200,
+      "height": 6,
+      "scale": 0.55,
+      "text": "%var_factions_perms_sous_titre%",
+      "align": "CENTER"
+    },
+    {
+      "type": "REPEATER",
+      "id": "permissions",
+      "x": 21,
+      "y": 44,
+      "width": 280,
+      "height": 90,
+      "source": "list:factions_perms",
+      "itemWidth": 70,
+      "itemHeight": 30,
+      "spacing": 0,
+      "direction": "GRID",
+      "columns": 4,
+      "scroll": "VERTICAL",
+      "clip": true,
+      "children": [
+        {
+          "type": "IMAGE",
+          "id": "case",
+          "x": 0,
+          "y": 0,
+          "width": 62,
+          "height": 24,
+          "source": "koriamc:textures/gui/Panneau.png",
+          "regionX": 865,
+          "regionY": 238,
+          "regionWidth": 359,
+          "regionHeight": 138,
+          "smooth": true
+        },
+        {
+          "type": "TEXT",
+          "id": "nom",
+          "x": 3,
+          "y": 9,
+          "width": 56,
+          "height": 6,
+          "scale": 0.5,
+          "text": "{item.couleur}{item.l1}",
+          "align": "CENTER",
+          "condition": "\"{item.l2}\" == \"\""
+        },
+        {
+          "type": "TEXT",
+          "id": "nom_1",
+          "x": 3,
+          "y": 6,
+          "width": 56,
+          "height": 6,
+          "scale": 0.5,
+          "text": "{item.couleur}{item.l1}",
+          "align": "CENTER",
+          "condition": "\"{item.l2}\" != \"\""
+        },
+        {
+          "type": "TEXT",
+          "id": "nom_2",
+          "x": 3,
+          "y": 12,
+          "width": 56,
+          "height": 6,
+          "scale": 0.5,
+          "text": "{item.couleur}{item.l2}",
+          "align": "CENTER",
+          "condition": "\"{item.l2}\" != \"\""
+        },
+        {
+          "type": "RECT",
+          "id": "clic",
+          "x": 1,
+          "y": 1,
+          "width": 60,
+          "height": 22,
+          "color": "#00000000",
+          "hoverColor": "#30FFF1C8",
+          "radius": 3,
+          "clickSound": true,
+          "tooltip": "{item.infobulle}",
+          "actions": [
+            "[left] command: %var_factions_commande% permsgui joueur %var_factions_perms_cible% {item.id}",
+            "[right] command: %var_factions_commande% permsgui joueur %var_factions_perms_cible% {item.id} reset"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "IMAGE",
+      "id": "configuration_par_defaut",
+      "x": 119,
+      "y": 137,
+      "width": 82,
+      "height": 22,
+      "source": "koriamc:textures/gui/Configuration_par_defaut_en_or.png",
+      "regionX": 0,
+      "regionY": 79,
+      "regionWidth": 2167,
+      "regionHeight": 573,
+      "smooth": true,
+      "hoverScale": 1.05,
+      "hoverSound": "random.click",
+      "clickSound": true,
+      "tooltip": "&6Configuration par défaut\n&7Choisis un rôle : &f%var_factions_perms_cible%\n&7reçoit ses permissions.",
+      "actions": [
+        "command: %var_factions_commande% permsgui joueur %var_factions_perms_cible% defaut"
+      ]
+    },
+    {
+      "type": "TEXT",
+      "id": "retour",
+      "x": 222,
+      "y": 146,
+      "width": 40,
+      "height": 7,
+      "scale": 0.6,
+      "text": "&f&nRetour",
+      "align": "CENTER"
+    },
+    {
+      "type": "RECT",
+      "id": "retour_clic",
+      "x": 222,
+      "y": 145,
+      "width": 40,
+      "height": 9,
+      "color": "#00000000",
+      "hoverColor": "#30FFFFFF",
+      "radius": 2,
+      "clickSound": true,
+      "actions": [
+        "command: %var_factions_commande% %var_factions_perms_retour%"
+      ]
+    },
+    {
+      "type": "TEXT",
+      "id": "erreur",
+      "x": 40,
+      "y": 160,
+      "width": 240,
+      "height": 5,
+      "scale": 0.45,
+      "text": "&c%var_factions_perms_erreur%",
+      "align": "CENTER",
+      "condition": "%var_factions_perms_erreur_oui% == true"
+    }
+  ]
+}

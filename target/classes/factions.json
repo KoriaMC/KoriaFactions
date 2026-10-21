@@ -1,0 +1,354 @@
+{
+  "factions": {
+    "nom-longueur-min": 3,
+    "nom-longueur-max": 10,
+    "nom-caracteres": "^[a-zA-Z0-9_]+$",
+    "noms-interdits": ["admin", "staff", "modo", "koriamc", "safezone", "warzone", "wilderness"],
+    "noms-interdits-si-contenus": false,
+    "delai-renommage-minutes": 60,
+    "description-longueur-max": 60,
+    "message-du-jour": { "actif": true, "longueur-max": 120, "a-la-connexion": true, "delai-ticks": 40 },
+    "membres-max": 15,
+    "role-a-l-arrivee": "RECRUIT",
+    "co-chefs-max": 2,
+    "officiers-max": 0,
+    "invitations": { "expiration-minutes": 10, "max-en-attente": 20, "cliquables": true },
+    "delai-avant-rejoindre-minutes": 0,
+    "dissoudre-si-vide": true,
+    "le-chef-peut-quitter": false,
+    "quitter-interdit-si-raidable": false,
+    "quitter-interdit-en-territoire-ennemi": true,
+    "dissolution-interdite-si-raidable": true,
+    "dissolution-lache-le-coffre": true,
+    "annonces-globales": { "creation": true, "dissolution": true, "renommage": true },
+    "titres": { "longueur-max": 16, "couleurs": false },
+    "confirmations": { "secondes": 15, "dissolution": true, "unclaim-tout": true, "quitter": true, "expulsion": false },
+    "notifier-connexions": true,
+    "notifier-deconnexions": true,
+    "liste": { "tri": "ONLINE", "par-page": 10 }
+  },
+  "roles": {
+    "LEADER": { "nom": "Chef", "prefixe": "**", "couleur": "&c" },
+    "COLEADER": { "actif": true, "nom": "Co-Chef", "prefixe": "*+", "couleur": "&6" },
+    "OFFICER": { "nom": "Officier", "prefixe": "*", "couleur": "&e" },
+    "MEMBER": { "nom": "Membre", "prefixe": "+", "couleur": "&a" },
+    "RECRUIT": { "actif": true, "nom": "Recrue", "prefixe": "-", "couleur": "&7" }
+  },
+  "permissions": {
+    "par-joueur": true,
+    "par-defaut": {
+      "COLEADER": ["*"],
+      "OFFICER": [
+        "BUILD", "DESTROY", "CONTAINER", "DOOR", "BUTTON", "LEVER", "PRESSURE_PLATE", "USE_ITEM", "INTERACT", "ENTITY_INTERACT",
+        "SPAWNER", "HOME", "WARP", "INVITE", "KICK", "BAN", "CLAIM", "UNCLAIM", "PROMOTE", "DEMOTE", "SETHOME", "SETWARP",
+        "DELWARP", "CHEST", "DESCRIPTION", "MOTD", "TITLE", "ACCESS", "ANNOUNCE", "LOGS"
+      ],
+      "MEMBER": [
+        "BUILD", "DESTROY", "CONTAINER", "DOOR", "BUTTON", "LEVER", "PRESSURE_PLATE", "USE_ITEM", "INTERACT", "ENTITY_INTERACT",
+        "SPAWNER", "HOME", "WARP", "CLAIM", "CHEST"
+      ],
+      "RECRUIT": ["BUILD", "DESTROY", "DOOR", "BUTTON", "LEVER", "PRESSURE_PLATE", "INTERACT", "HOME", "WARP"]
+    },
+    "verrouillees": {},
+    "actions": {
+      "BUILD": { "nom": "Construire", "description": "Poser des blocs", "icone": "BRICK" },
+      "DESTROY": { "nom": "Détruire", "description": "Casser des blocs", "icone": "IRON_PICKAXE" },
+      "CONTAINER": { "nom": "Conteneurs", "description": "Ouvrir coffres, fours, entonnoirs...", "icone": "CHEST" },
+      "DOOR": { "nom": "Portes", "description": "Utiliser portes, trappes et barrières", "icone": "WOOD_DOOR" },
+      "BUTTON": { "nom": "Boutons", "description": "Utiliser les boutons", "icone": "STONE_BUTTON" },
+      "LEVER": { "nom": "Leviers", "description": "Utiliser les leviers", "icone": "LEVER" },
+      "PRESSURE_PLATE": { "nom": "Plaques de pression", "description": "Activer les plaques de pression", "icone": "STONE_PLATE" },
+      "USE_ITEM": { "nom": "Objets", "description": "Seaux, briquets, œufs de spawn...", "icone": "BUCKET" },
+      "INTERACT": { "nom": "Interactions", "description": "Enclumes, tables d'enchantement, répéteurs...", "icone": "ANVIL" },
+      "ENTITY_INTERACT": { "nom": "Entités", "description": "Cadres, porte-armures, wagonnets...", "icone": "ITEM_FRAME" },
+      "SPAWNER": { "nom": "Spawners", "description": "Poser et casser des spawners", "icone": "MOB_SPAWNER" },
+      "HOME": { "nom": "Home", "description": "Se téléporter au home de faction", "icone": "BED" },
+      "WARP": { "nom": "Warps", "description": "Utiliser les warps de faction", "icone": "ENDER_PEARL" },
+      "INVITE": { "nom": "Inviter", "description": "Inviter des joueurs", "icone": "PAPER" },
+      "KICK": { "nom": "Expulser", "description": "Expulser des membres de rang inférieur", "icone": "IRON_BOOTS" },
+      "BAN": { "nom": "Bannir", "description": "Bannir des joueurs de la faction", "icone": "BARRIER" },
+      "CLAIM": { "nom": "Claim", "description": "Revendiquer des chunks", "icone": "GRASS" },
+      "UNCLAIM": { "nom": "Unclaim", "description": "Abandonner des chunks", "icone": "DIRT" },
+      "UNCLAIM_ALL": { "nom": "Unclaim tout", "description": "Abandonner tout le territoire", "icone": "LAVA_BUCKET" },
+      "PROMOTE": { "nom": "Promouvoir", "description": "Promouvoir des membres", "icone": "GOLD_INGOT" },
+      "DEMOTE": { "nom": "Rétrograder", "description": "Rétrograder des membres", "icone": "IRON_INGOT" },
+      "SETHOME": { "nom": "Définir le home", "description": "Définir le home de faction", "icone": "BED" },
+      "SETWARP": { "nom": "Créer des warps", "description": "Créer des warps", "icone": "EYE_OF_ENDER" },
+      "DELWARP": { "nom": "Supprimer des warps", "description": "Supprimer des warps", "icone": "ENDER_PEARL" },
+      "CHEST": { "nom": "Coffre", "description": "Ouvrir le coffre de faction", "icone": "ENDER_CHEST" },
+      "DESCRIPTION": { "nom": "Description", "description": "Modifier la description", "icone": "BOOK" },
+      "MOTD": { "nom": "Message du jour", "description": "Modifier le message du jour", "icone": "BOOK_AND_QUILL" },
+      "TITLE": { "nom": "Titres", "description": "Donner des titres aux membres", "icone": "NAME_TAG" },
+      "FLAGS": { "nom": "Flags", "description": "Modifier les flags de la faction", "icone": "BANNER" },
+      "UPGRADE": { "nom": "Améliorations", "description": "Acheter des améliorations", "icone": "EXP_BOTTLE" },
+      "ACCESS": { "nom": "Accès", "description": "Gérer les accès par chunk", "icone": "TRIPWIRE_HOOK" },
+      "ANNOUNCE": { "nom": "Annonces", "description": "Envoyer des annonces", "icone": "SIGN" },
+      "LOGS": { "nom": "Journal", "description": "Consulter le journal de faction", "icone": "MAP" },
+      "RENAME": { "nom": "Renommer", "description": "Renommer la faction", "icone": "NAME_TAG" },
+      "PERMS": { "nom": "Permissions", "description": "Modifier les permissions (rangs inférieurs)", "icone": "COMMAND" }
+    }
+  },
+  "flags": {
+    "OPEN": {
+      "defaut": false,
+      "modifiable": true,
+      "nom": "Ouverte",
+      "description": "Tout le monde peut rejoindre sans invitation",
+      "icone": "WOOD_DOOR"
+    },
+    "PEACEFUL": {
+      "defaut": false,
+      "modifiable": false,
+      "nom": "Pacifique",
+      "description": "Ses membres ne peuvent ni frapper ni être frappés",
+      "icone": "RED_ROSE"
+    },
+    "PERMANENT": {
+      "defaut": false,
+      "modifiable": false,
+      "nom": "Permanente",
+      "description": "N'est jamais dissoute, même sans membre",
+      "icone": "BEDROCK"
+    },
+    "EXPLOSIONS": {
+      "defaut": true,
+      "modifiable": true,
+      "nom": "Explosions",
+      "description": "Autorise les explosions dans le territoire",
+      "icone": "TNT"
+    },
+    "FRIENDLY_FIRE": {
+      "defaut": false,
+      "modifiable": true,
+      "nom": "Tir entre membres",
+      "description": "Les membres peuvent se blesser entre eux",
+      "icone": "BOW"
+    },
+    "PVP": {
+      "defaut": true,
+      "modifiable": false,
+      "nom": "PvP",
+      "description": "Autorise le PvP dans le territoire",
+      "icone": "DIAMOND_SWORD"
+    },
+    "MONSTERS": {
+      "defaut": true,
+      "modifiable": true,
+      "nom": "Monstres",
+      "description": "Les monstres apparaissent dans le territoire",
+      "icone": "ROTTEN_FLESH"
+    },
+    "FIRE_SPREAD": {
+      "defaut": false,
+      "modifiable": true,
+      "nom": "Propagation du feu",
+      "description": "Le feu peut se propager",
+      "icone": "FLINT_AND_STEEL"
+    },
+    "INFINITE_POWER": {
+      "defaut": false,
+      "modifiable": false,
+      "nom": "Puissance infinie",
+      "description": "La faction n'est jamais raidable",
+      "icone": "NETHER_STAR"
+    }
+  },
+  "relations": {
+    "affichage": {
+      "MEMBER": { "nom": "Membre", "couleur": "&a" },
+      "ENEMY": { "nom": "Ennemi", "couleur": "&c" }
+    }
+  },
+  "puissance": {
+    "depart": 5.0,
+    "min": -10.0,
+    "max": 10.0,
+    "max-par-grade": {
+      "eclaireur": { "permission": "koriafactions.power.eclaireur", "max": 12.0 },
+      "conquerant": { "permission": "koriafactions.power.conquerant", "max": 14.0 },
+      "empereur": { "permission": "koriafactions.power.empereur", "max": 16.0 }
+    },
+    "regeneration": { "intervalle-secondes": 60, "par-minute-connecte": 0.2, "par-minute-deconnecte": 0.0, "mondes-exclus": [] },
+    "perte-a-la-mort": 4.0,
+    "perte-seulement-pvp": false,
+    "pacifiques-sans-perte": true,
+    "mondes-sans-perte": [],
+    "multiplicateurs-de-perte": { "WILDERNESS": 1.0, "SAFEZONE": 0.0, "WARZONE": 1.0, "OWN": 1.0, "ENEMY": 1.0 },
+    "gain-par-kill": 0.0,
+    "faction-max": 0.0,
+    "compter-hors-ligne": true,
+    "alerte-raidable": true
+  },
+  "pvp": {
+    "entre-membres": false,
+    "entre-ennemis": true,
+    "sans-faction-peut-attaquer": true,
+    "sans-faction-peut-etre-attaque": true,
+    "pacifiques-sans-pvp": true,
+    "mondes-sans-pvp": [],
+    "anti-spam-message-ms": 1500,
+    "stats-seulement-pvp": true
+  },
+  "home": {
+    "actif": true,
+    "dans-son-territoire": true,
+    "refus-si-ennemi-a-moins-de": 32,
+    "refus-depuis-territoire-ennemi": true,
+    "refus-autre-monde": false,
+    "mondes-interdits": [],
+    "reapparaitre-au-home": false
+  },
+  "warps": {
+    "actif": true,
+    "max": 2,
+    "dans-son-territoire": true,
+    "nom-longueur-max": 16,
+    "nom-caracteres": "^[a-zA-Z0-9_-]+$",
+    "refus-si-ennemi-a-moins-de": 32,
+    "refus-depuis-territoire-ennemi": true,
+    "mots-de-passe": true
+  },
+  "teleportation": {
+    "attente-secondes": { "home": 5, "warp": 5 },
+    "delai-secondes": { "home": 30, "warp": 30 },
+    "instantanee-dans-son-territoire": true,
+    "rayon-ennemi-instantanee": 32,
+    "annuler-si-mouvement": true,
+    "annuler-si-degats": true,
+    "compte-a-rebours": "ACTIONBAR",
+    "sons": { "tic": "CLICK", "reussite": "ENDERMAN_TELEPORT", "annulation": "VILLAGER_NO" }
+  },
+  "coffre": { "actif": true, "lignes-de-base": 0, "titre": "&8Coffre &7» &6{faction}", "objets-interdits": [] },
+  "ameliorations": {
+    "actif": true,
+    "annoncer-achat": true,
+    "reduction-degats-seulement-pvp": true,
+    "reduction-degats-max": 50,
+    "liste": {
+      "membres": {
+        "argument": "members",
+        "type": "MEMBERS",
+        "case": 10,
+        "icone": "SKULL_ITEM:3",
+        "nom": "&aMembres supplémentaires",
+        "description": ["&7Augmente le nombre maximum", "&7de membres de la faction."],
+        "format-valeur": "+{value} membres",
+        "niveaux": {
+          "1": { "cout": 50000, "valeur": 2 },
+          "2": { "cout": 150000, "valeur": 4 },
+          "3": { "cout": 400000, "valeur": 6 }
+        }
+      },
+      "puissance": {
+        "argument": "power",
+        "type": "POWER",
+        "case": 11,
+        "icone": "BLAZE_POWDER",
+        "nom": "&cPuissance bonus",
+        "description": ["&7Ajoute de la puissance", "&7à la faction."],
+        "format-valeur": "+{value} puissance",
+        "niveaux": {
+          "1": { "cout": 75000, "valeur": 5 },
+          "2": { "cout": 200000, "valeur": 10 },
+          "3": { "cout": 500000, "valeur": 20 }
+        }
+      },
+      "coffre": {
+        "argument": "chest",
+        "type": "CHEST",
+        "case": 12,
+        "icone": "CHEST",
+        "nom": "&6Coffre de faction",
+        "description": ["&7Débloque le coffre partagé", "&7(/f chest) puis l'agrandit,", "&7jusqu'à 6 lignes."],
+        "format-valeur": "{value} ligne(s)",
+        "niveaux": {
+          "1": { "cout": 25000, "valeur": 1 },
+          "2": { "cout": 60000, "valeur": 2 },
+          "3": { "cout": 120000, "valeur": 3 },
+          "4": { "cout": 250000, "valeur": 4 },
+          "5": { "cout": 450000, "valeur": 5 },
+          "6": { "cout": 750000, "valeur": 6 }
+        }
+      },
+      "warps": {
+        "argument": "warps",
+        "type": "WARPS",
+        "case": 13,
+        "icone": "EYE_OF_ENDER",
+        "nom": "&5Warps supplémentaires",
+        "description": ["&7Augmente le nombre de warps."],
+        "format-valeur": "+{value} warps",
+        "niveaux": {
+          "1": { "cout": 40000, "valeur": 1 },
+          "2": { "cout": 120000, "valeur": 2 },
+          "3": { "cout": 300000, "valeur": 3 }
+        }
+      },
+      "defense": {
+        "argument": "defense",
+        "type": "DAMAGE_REDUCTION",
+        "case": 14,
+        "icone": "IRON_CHESTPLATE",
+        "nom": "&9Défense du territoire",
+        "description": ["&7Réduit les dégâts subis par", "&7les membres dans leur territoire."],
+        "format-valeur": "-{value}% de dégâts",
+        "niveaux": {
+          "1": { "cout": 100000, "valeur": 5 },
+          "2": { "cout": 250000, "valeur": 10 },
+          "3": { "cout": 500000, "valeur": 15 },
+          "4": { "cout": 1000000, "valeur": 20 }
+        }
+      },
+      "cultures": {
+        "argument": "crops",
+        "type": "CROPS",
+        "case": 15,
+        "icone": "WHEAT",
+        "nom": "&eCroissance des cultures",
+        "description": ["&7Chance que les cultures", "&7poussent plus vite dans", "&7le territoire."],
+        "format-valeur": "{value}% de chance",
+        "niveaux": {
+          "1": { "cout": 50000, "valeur": 10 },
+          "2": { "cout": 150000, "valeur": 20 },
+          "3": { "cout": 350000, "valeur": 35 }
+        }
+      },
+      "experience": {
+        "argument": "experience",
+        "type": "EXP",
+        "case": 16,
+        "icone": "EXP_BOTTLE",
+        "nom": "&aExpérience bonus",
+        "description": ["&7Expérience supplémentaire en", "&7tuant des monstres dans le territoire."],
+        "format-valeur": "+{value}% d'expérience",
+        "niveaux": {
+          "1": { "cout": 40000, "valeur": 25 },
+          "2": { "cout": 120000, "valeur": 50 },
+          "3": { "cout": 300000, "valeur": 100 }
+        }
+      },
+      "spawners": {
+        "argument": "spawners",
+        "type": "SPAWNERS",
+        "case": 22,
+        "icone": "MOB_SPAWNER",
+        "nom": "&dSpawners boostés",
+        "description": ["&7Chance qu'un spawner du territoire", "&7fasse apparaître un monstre de plus."],
+        "format-valeur": "{value}% de chance",
+        "niveaux": {
+          "1": { "cout": 100000, "valeur": 10 },
+          "2": { "cout": 300000, "valeur": 20 },
+          "3": { "cout": 750000, "valeur": 30 }
+        }
+      }
+    }
+  },
+  "inactivite": {
+    "actif": false,
+    "verification-minutes": 60,
+    "expulsion-apres-jours": 30,
+    "dissolution-apres-jours": 45,
+    "transfert-du-chef": true,
+    "purge-joueurs-apres-jours": 90
+  }
+}

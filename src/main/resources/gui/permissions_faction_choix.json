@@ -1,0 +1,155 @@
+{
+  "type": "SCREEN",
+  "note": "Permissions de faction, choix du rôle ou du membre (plugin KoriaFactions). Liste list:factions_perms_choix : l1, l2, couleur, infobulle, commande (exécutée après /%var_factions_commande%). Variables : %var_factions_commande%, %var_factions_perms_retour%, %var_factions_perms_sous_titre%, %var_factions_perms_vide%. Textures : permission_faction.png, Panneau.png.",
+  "width": 320,
+  "height": 193,
+  "anchor": "CENTER",
+  "scaleMode": "ADAPT",
+  "referenceWidth": 520,
+  "referenceHeight": 320,
+  "background": "#90000000",
+  "blur": true,
+  "closeOnEscape": true,
+  "openSound": "random.pop",
+  "closeSound": "",
+  "openAnimation": "ZOOM",
+  "animationDuration": 260,
+  "elements": [
+    {
+      "type": "IMAGE",
+      "id": "fond",
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 193,
+      "source": "koriamc:textures/gui/permission_faction.png",
+      "regionX": 0,
+      "regionY": 31,
+      "regionWidth": 1536,
+      "regionHeight": 928,
+      "smooth": true
+    },
+    {
+      "type": "TEXT",
+      "id": "sous_titre",
+      "x": 60,
+      "y": 33,
+      "width": 200,
+      "height": 6,
+      "scale": 0.55,
+      "text": "%var_factions_perms_sous_titre%",
+      "align": "CENTER"
+    },
+    {
+      "type": "REPEATER",
+      "id": "choix",
+      "x": 21,
+      "y": 44,
+      "width": 280,
+      "height": 90,
+      "source": "list:factions_perms_choix",
+      "itemWidth": 70,
+      "itemHeight": 30,
+      "spacing": 0,
+      "direction": "GRID",
+      "columns": 4,
+      "scroll": "VERTICAL",
+      "clip": true,
+      "emptyText": "%var_factions_perms_vide%",
+      "children": [
+        {
+          "type": "IMAGE",
+          "id": "case",
+          "x": 0,
+          "y": 0,
+          "width": 62,
+          "height": 24,
+          "source": "koriamc:textures/gui/Panneau.png",
+          "regionX": 865,
+          "regionY": 238,
+          "regionWidth": 359,
+          "regionHeight": 138,
+          "smooth": true
+        },
+        {
+          "type": "TEXT",
+          "id": "nom",
+          "x": 3,
+          "y": 9,
+          "width": 56,
+          "height": 6,
+          "scale": 0.5,
+          "text": "{item.couleur}{item.l1}",
+          "align": "CENTER",
+          "condition": "\"{item.l2}\" == \"\""
+        },
+        {
+          "type": "TEXT",
+          "id": "nom_1",
+          "x": 3,
+          "y": 6,
+          "width": 56,
+          "height": 6,
+          "scale": 0.5,
+          "text": "{item.couleur}{item.l1}",
+          "align": "CENTER",
+          "condition": "\"{item.l2}\" != \"\""
+        },
+        {
+          "type": "TEXT",
+          "id": "nom_2",
+          "x": 3,
+          "y": 12,
+          "width": 56,
+          "height": 6,
+          "scale": 0.5,
+          "text": "{item.couleur}{item.l2}",
+          "align": "CENTER",
+          "condition": "\"{item.l2}\" != \"\""
+        },
+        {
+          "type": "RECT",
+          "id": "clic",
+          "x": 1,
+          "y": 1,
+          "width": 60,
+          "height": 22,
+          "color": "#00000000",
+          "hoverColor": "#30FFF1C8",
+          "radius": 3,
+          "clickSound": true,
+          "tooltip": "{item.infobulle}",
+          "actions": [
+            "command: %var_factions_commande% {item.commande}"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "TEXT",
+      "id": "retour",
+      "x": 140,
+      "y": 146,
+      "width": 40,
+      "height": 7,
+      "scale": 0.6,
+      "text": "&f&nRetour",
+      "align": "CENTER"
+    },
+    {
+      "type": "RECT",
+      "id": "retour_clic",
+      "x": 140,
+      "y": 145,
+      "width": 40,
+      "height": 9,
+      "color": "#00000000",
+      "hoverColor": "#30FFFFFF",
+      "radius": 2,
+      "clickSound": true,
+      "actions": [
+        "command: %var_factions_commande% %var_factions_perms_retour%"
+      ]
+    }
+  ]
+}

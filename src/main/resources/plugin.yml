@@ -1,0 +1,57 @@
+name: KoriaFactions
+version: ${project.version}
+main: fr.koriamc.factions.KoriaFactions
+author: KoriaMC
+description: ${project.description}
+softdepend: [Vault, PlaceholderAPI]
+load: POSTWORLD
+
+# La commande principale (/f par défaut) et ses alias sont enregistrés dynamiquement
+# depuis config.json : ils ne sont donc pas déclarés ici.
+
+permissions:
+  koriafactions.*:
+    description: Accès complet à KoriaFactions
+    default: op
+    children:
+      koriafactions.player: true
+      koriafactions.admin: true
+  koriafactions.player:
+    description: Commandes joueur de base (les nœuds exacts sont définis dans config.json)
+    default: true
+  koriafactions.admin:
+    description: Accès à toutes les commandes et bypass d'administration
+    default: op
+    children:
+      koriafactions.bypass: true
+      koriafactions.bypass.commands: true
+      koriafactions.bypass.cooldown: true
+      koriafactions.bypass.warmup: true
+      koriafactions.bypass.cost: true
+      koriafactions.zone.safezone.build: true
+      koriafactions.zone.warzone.build: true
+      koriafactions.chat.color: true
+  koriafactions.bypass:
+    description: Peut activer le mode bypass (/f bypass)
+    default: op
+  koriafactions.bypass.commands:
+    description: Ignore les commandes bloquées selon le territoire
+    default: op
+  koriafactions.bypass.cooldown:
+    description: Ignore les délais de réutilisation
+    default: op
+  koriafactions.bypass.warmup:
+    description: Téléportations instantanées
+    default: op
+  koriafactions.bypass.cost:
+    description: Ne paie aucun coût de commande
+    default: op
+  koriafactions.zone.safezone.build:
+    description: Peut construire dans la SafeZone
+    default: op
+  koriafactions.zone.warzone.build:
+    description: Peut construire dans la WarZone
+    default: op
+  koriafactions.chat.color:
+    description: Peut utiliser les couleurs dans les canaux de faction
+    default: op
