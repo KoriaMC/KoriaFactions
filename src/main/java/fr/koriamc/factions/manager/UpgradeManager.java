@@ -24,6 +24,9 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.SpawnerSpawnEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.ArrayList;
@@ -109,6 +112,15 @@ public final class UpgradeManager implements Listener {
     private boolean announce;
     private boolean damagePvpOnly;
     private double damageMaxPercent;
+    private final java.util.Set<String> sethomeCommands = new java.util.HashSet<String>();
+    private boolean obsidianEnabled;
+    private int obsidianRadius;
+    private long obsidianResetMillis;
+    private boolean obsidianIgnoreWater;
+    /** Coups d'explosion nécessaires par matériau (sans amélioration). */
+    private final Map<Material, Integer> obsidianHits = new HashMap<Material, Integer>();
+    /** Dégâts en cours par bloc : "monde:x:y:z" -> {coups, dernier coup en ms}. */
+    private final Map<String, long[]> blockDamage = new HashMap<String, long[]>();
 
     public UpgradeManager(KoriaFactions plugin) {
         this.plugin = plugin;
@@ -123,6 +135,26 @@ public final class UpgradeManager implements Listener {
         announce = c.getBoolean("ameliorations.annoncer-achat");
         damagePvpOnly = c.getBoolean("ameliorations.reduction-degats-seulement-pvp");
         damageMaxPercent = Math.max(0, Math.min(100, c.getDouble("ameliorations.reduction-degats-max")));
+        sethomeCommands.clear();
+        for (String cmd : c.getStringList("ameliorations.anti-sethome-commandes")) {
+            sethomeCommands.add(cmd.trim().toLowerCase(Locale.ROOT).replaceFirst("^/", ""));
+        }
+        obsidianEnabled = c.getBoolean("raid-obsidienne.actif");
+        obsidianRadius = Math.max(1, c.getInt("raid-obsidienne.rayon", 3));
+        obsidianResetMillis = Math.max(0, c.getLong("raid-obsidienne.reinitialisation-minutes", 10)) * 60000L;
+        obsidianIgnoreWater = c.getBoolean("raid-obsidienne.ignorer-dans-eau", true);
+        obsidianHits.clear();
+        ConfigurationSection hits = c.getConfigurationSection("raid-obsidienne.coups");
+        if (hits != null) {
+            for (String key : hits.getKeys(false)) {
+                Material m = Material.matchMaterial(key.trim().toUpperCase(Locale.ROOT));
+                if (m == null) {
+                    problems.add("factions.json, raid-obsidienne.coups : matériau inconnu '" + key + "'");
+                } else {
+                    obsidianHits.put(m, Math.max(1, hits.getInt(key)));
+                }
+            }
+        }
         ConfigurationSection root = c.getConfigurationSection("ameliorations.liste");
         if (root == null) {
             return;
@@ -487,5 +519,109 @@ public final class UpgradeManager implements Listener {
         if (percent > 0) {
             event.setDamage(event.getDamage() * (1 - percent / 100.0));
         }
+    }
+
+    // ======================================================== Anti-sethome
+
+    /** Un non-membre ne peut pas faire /sethome dans le territoire d'une faction qui a l'amélioration. */
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    public void onCommand(PlayerCommandPreprocessEvent event) {
+        if (!enabled || sethomeCommands.isEmpty()) {
+            return;
+        }
+        String label = event.getMessage().substring(1).split(" ", 2)[0].toLowerCase(Locale.ROOT);
+        int colon = label.indexOf(':');
+        if (colon >= 0) {
+            label = label.substring(colon + 1);
+        }
+        if (!sethomeCommands.contains(label)) {
+            return;
+        }
+        Player player = event.getPlayer();
+        Faction here = territory(player.getLocation());
+        if (here == null || getValue(here, UpgradeType.ANTI_SETHOME) <= 0) {
+            return;
+        }
+        FPlayer fp = plugin.players().get(player);
+        if (fp != null && here.getId().equals(fp.getFactionId())) {
+            return;
+        }
+        event.setCancelled(true);
+        plugin.msg().send(player, "upgrades.anti-sethome", "faction", here.getTag());
+    }
+
+    // ===================================================== Raid : obsidienne
+
+    /**
+     * Les explosions autorisées abîment l'obsidienne autour d'elles : chaque bloc casse
+     * au bout de N coups (raid-obsidienne.coups), plus le bonus OBSIDIAN de la faction
+     * propriétaire du terrain.
+     */
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onExplode(EntityExplodeEvent event) {
+        if (!obsidianEnabled || obsidianHits.isEmpty()) {
+            return;
+        }
+        Location center = event.getLocation();
+        if (obsidianIgnoreWater && center.getBlock().isLiquid()) {
+            return;
+        }
+        long now = System.currentTimeMillis();
+        int r = obsidianRadius;
+        for (int x = -r; x <= r; x++) {
+            for (int y = -r; y <= r; y++) {
+                for (int z = -r; z <= r; z++) {
+                    if (x * x + y * y + z * z > r * r) {
+                        continue;
+                    }
+                    Block block = center.getBlock().getRelative(x, y, z);
+                    Integer base = obsidianHits.get(block.getType());
+                    if (base == null) {
+                        continue;
+                    }
+                    Faction owner = territory(block.getLocation());
+                    if (owner != null && !plugin.protectionService().isExplosionAllowed(block.getLocation(),
+                            fr.koriamc.factions.model.ExplosionType.of(event.getEntity()))) {
+                        continue;
+                    }
+                    int needed = base + (int) Math.round(getValue(owner, UpgradeType.OBSIDIAN));
+                    String key = block.getWorld().getName() + ":" + block.getX() + ":" + block.getY() + ":" + block.getZ();
+                    long[] state = blockDamage.get(key);
+                    if (state == null || (obsidianResetMillis > 0 && now - state[1] > obsidianResetMillis)) {
+                        state = new long[]{0, now};
+                        blockDamage.put(key, state);
+                    }
+                    state[0]++;
+                    state[1] = now;
+                    if (state[0] >= needed) {
+                        blockDamage.remove(key);
+                        Material type = block.getType();
+                        block.setType(Material.AIR);
+                        block.getWorld().dropItemNaturally(block.getLocation().add(0.5, 0.5, 0.5), new ItemStack(type));
+                    }
+                }
+            }
+        }
+        if (blockDamage.size() > 20000) {
+            blockDamage.clear();
+        }
+    }
+
+    /** Coups restants avant de casser ce bloc (0 si ce n'est pas un bloc renforcé). */
+    public int getRemainingHits(Block block) {
+        Integer base = obsidianHits.get(block.getType());
+        if (base == null) {
+            return 0;
+        }
+        int needed = base + (int) Math.round(getValue(territory(block.getLocation()), UpgradeType.OBSIDIAN));
+        long[] state = blockDamage.get(block.getWorld().getName() + ":" + block.getX() + ":" + block.getY() + ":" + block.getZ());
+        return (int) Math.max(1, needed - (state == null ? 0 : state[0]));
+    }
+
+    // ================================================ Machine de renforcement
+
+    /** La faction propriétaire de ce terrain a-t-elle débloqué la machine de renforcement ? */
+    public boolean isMachineAllowed(Location location) {
+        return getValue(territory(location), UpgradeType.MACHINE) > 0;
     }
 }

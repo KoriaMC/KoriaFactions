@@ -116,4 +116,19 @@ public final class KoriaFactionsAPI {
     public static int getPointsRank(Faction faction) {
         return plugin().top().get("POINTS").indexOf(faction) + 1;
     }
+
+    /**
+     * Valeur cumulée d'un type d'amélioration pour une faction (0 si non achetée).
+     *
+     * @param type MEMBERS, WARPS, CHEST, DAMAGE_REDUCTION, SPAWNERS, ANTI_SETHOME, OBSIDIAN, MACHINE...
+     */
+    public static double getUpgradeValue(Faction faction, String type) {
+        fr.koriamc.factions.model.UpgradeType t = fr.koriamc.factions.model.UpgradeType.parse(type);
+        return t == null ? 0 : plugin().upgrades().getValue(faction, t);
+    }
+
+    /** La machine de renforcement peut-elle être posée / utilisée ici (amélioration MACHINE du propriétaire) ? */
+    public static boolean isReinforcementMachineAllowed(Location location) {
+        return plugin().upgrades().isMachineAllowed(location);
+    }
 }

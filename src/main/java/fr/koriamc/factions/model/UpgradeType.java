@@ -13,7 +13,13 @@ public enum UpgradeType {
     CROPS,
     EXP,
     SPAWNERS,
-    DAMAGE_REDUCTION;
+    DAMAGE_REDUCTION,
+    /** Empêche les non-membres de faire /sethome dans le territoire. */
+    ANTI_SETHOME,
+    /** Coups d'explosion supplémentaires pour casser l'obsidienne du territoire. */
+    OBSIDIAN,
+    /** Autorise la machine de renforcement dans le territoire. */
+    MACHINE;
 
     public static UpgradeType parse(String name) {
         if (name == null) {

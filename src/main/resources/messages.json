@@ -444,7 +444,8 @@
     "max-level": "{prefix}&cCette amélioration est déjà au niveau maximum.",
     "not-enough-money": "{prefix}&cVous n'avez pas assez d'argent (&f{cost}&c).",
     "unknown": "{prefix}&cAmélioration inconnue : &f{upgrade}",
-    "admin-set": "{prefix}&aAmélioration &f{upgrade} &ade &f{faction} &a: niveau &f{level}&a."
+    "admin-set": "{prefix}&aAmélioration &f{upgrade} &ade &f{faction} &a: niveau &f{level}&a.",
+    "anti-sethome": "{prefix}&cLa faction &f{faction} &cempêche les /sethome sur son territoire."
   },
   "logs": {
     "header": "&6&m--------&r &eJournal de {faction} &7(&f{page}&7/&f{pages}&7) &6&m--------",

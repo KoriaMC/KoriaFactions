@@ -222,126 +222,119 @@
   "ameliorations": {
     "actif": true,
     "annoncer-achat": true,
-    "reduction-degats-seulement-pvp": true,
+    "reduction-degats-seulement-pvp": false,
     "reduction-degats-max": 50,
+    "anti-sethome-commandes": ["sethome", "esethome", "createhome", "ecreatehome"],
     "liste": {
-      "membres": {
-        "argument": "members",
-        "type": "MEMBERS",
-        "case": 10,
-        "icone": "SKULL_ITEM:3",
-        "nom": "&aMembres supplémentaires",
-        "description": ["&7Augmente le nombre maximum", "&7de membres de la faction."],
-        "format-valeur": "+{value} membres",
-        "niveaux": {
-          "1": { "cout": 50000, "valeur": 2 },
-          "2": { "cout": 150000, "valeur": 4 },
-          "3": { "cout": 400000, "valeur": 6 }
-        }
-      },
-      "puissance": {
-        "argument": "power",
-        "type": "POWER",
-        "case": 11,
-        "icone": "BLAZE_POWDER",
-        "nom": "&cPuissance bonus",
-        "description": ["&7Ajoute de la puissance", "&7à la faction."],
-        "format-valeur": "+{value} puissance",
-        "niveaux": {
-          "1": { "cout": 75000, "valeur": 5 },
-          "2": { "cout": 200000, "valeur": 10 },
-          "3": { "cout": 500000, "valeur": 20 }
-        }
-      },
-      "coffre": {
-        "argument": "chest",
-        "type": "CHEST",
-        "case": 12,
-        "icone": "CHEST",
-        "nom": "&6Coffre de faction",
-        "description": ["&7Débloque le coffre partagé", "&7(/f chest) puis l'agrandit,", "&7jusqu'à 6 lignes."],
-        "format-valeur": "{value} ligne(s)",
-        "niveaux": {
-          "1": { "cout": 25000, "valeur": 1 },
-          "2": { "cout": 60000, "valeur": 2 },
-          "3": { "cout": 120000, "valeur": 3 },
-          "4": { "cout": 250000, "valeur": 4 },
-          "5": { "cout": 450000, "valeur": 5 },
-          "6": { "cout": 750000, "valeur": 6 }
-        }
-      },
       "warps": {
         "argument": "warps",
         "type": "WARPS",
-        "case": 13,
+        "case": 10,
         "icone": "EYE_OF_ENDER",
-        "nom": "&5Warps supplémentaires",
-        "description": ["&7Augmente le nombre de warps."],
-        "format-valeur": "+{value} warps",
+        "nom": "&5Warp de faction",
+        "description": ["&7Améliore le système de téléportation", "&7vers le territoire de la faction."],
+        "format-valeur": "+{value} warp(s)",
         "niveaux": {
           "1": { "cout": 40000, "valeur": 1 },
           "2": { "cout": 120000, "valeur": 2 },
           "3": { "cout": 300000, "valeur": 3 }
         }
       },
+      "coffre": {
+        "argument": "chest",
+        "type": "CHEST",
+        "case": 11,
+        "icone": "CHEST",
+        "nom": "&6Coffre de faction",
+        "description": ["&7Débloque le coffre partagé", "&7(/f chest) puis augmente", "&7sa capacité de stockage."],
+        "format-valeur": "{value} ligne(s)",
+        "niveaux": {
+          "1": { "cout": 25000, "valeur": 2 },
+          "2": { "cout": 120000, "valeur": 4 },
+          "3": { "cout": 450000, "valeur": 6 }
+        }
+      },
+      "anti-sethome": {
+        "argument": "antisethome",
+        "type": "ANTI_SETHOME",
+        "case": 12,
+        "icone": "BED",
+        "nom": "&cAnti-SetHome",
+        "description": ["&7Empêche les joueurs ennemis", "&7de faire /sethome dans", "&7le territoire de la faction."],
+        "format-valeur": "Actif",
+        "niveaux": {
+          "1": { "cout": 150000, "valeur": 1 }
+        }
+      },
       "defense": {
         "argument": "defense",
         "type": "DAMAGE_REDUCTION",
-        "case": 14,
+        "case": 13,
         "icone": "IRON_CHESTPLATE",
-        "nom": "&9Défense du territoire",
-        "description": ["&7Réduit les dégâts subis par", "&7les membres dans leur territoire."],
+        "nom": "&9Réduction des dégâts",
+        "description": ["&7Les membres reçoivent moins", "&7de dégâts dans leurs claims."],
         "format-valeur": "-{value}% de dégâts",
         "niveaux": {
-          "1": { "cout": 100000, "valeur": 5 },
-          "2": { "cout": 250000, "valeur": 10 },
-          "3": { "cout": 500000, "valeur": 15 },
-          "4": { "cout": 1000000, "valeur": 20 }
+          "1": { "cout": 250000, "valeur": 10 }
         }
       },
-      "cultures": {
-        "argument": "crops",
-        "type": "CROPS",
-        "case": 15,
-        "icone": "WHEAT",
-        "nom": "&eCroissance des cultures",
-        "description": ["&7Chance que les cultures", "&7poussent plus vite dans", "&7le territoire."],
-        "format-valeur": "{value}% de chance",
+      "membres": {
+        "argument": "members",
+        "type": "MEMBERS",
+        "case": 14,
+        "icone": "SKULL_ITEM:3",
+        "nom": "&aMembres supplémentaires",
+        "description": ["&7Augmente le nombre maximum", "&7de membres de la faction."],
+        "format-valeur": "+{value} membres",
         "niveaux": {
-          "1": { "cout": 50000, "valeur": 10 },
-          "2": { "cout": 150000, "valeur": 20 },
-          "3": { "cout": 350000, "valeur": 35 }
+          "1": { "cout": 75000, "valeur": 2 },
+          "2": { "cout": 250000, "valeur": 4 }
         }
       },
-      "experience": {
-        "argument": "experience",
-        "type": "EXP",
-        "case": 16,
-        "icone": "EXP_BOTTLE",
-        "nom": "&aExpérience bonus",
-        "description": ["&7Expérience supplémentaire en", "&7tuant des monstres dans le territoire."],
-        "format-valeur": "+{value}% d'expérience",
-        "niveaux": {
-          "1": { "cout": 40000, "valeur": 25 },
-          "2": { "cout": 120000, "valeur": 50 },
-          "3": { "cout": 300000, "valeur": 100 }
-        }
-      },
-      "spawners": {
+      "spawn-mobs": {
         "argument": "spawners",
         "type": "SPAWNERS",
-        "case": 22,
+        "case": 15,
         "icone": "MOB_SPAWNER",
-        "nom": "&dSpawners boostés",
-        "description": ["&7Chance qu'un spawner du territoire", "&7fasse apparaître un monstre de plus."],
-        "format-valeur": "{value}% de chance",
+        "nom": "&dTaux de spawn des mobs",
+        "description": ["&7Augmente le taux d'apparition", "&7des mobs des spawners du territoire."],
+        "format-valeur": "+{value}% de spawn",
         "niveaux": {
-          "1": { "cout": 100000, "valeur": 10 },
-          "2": { "cout": 300000, "valeur": 20 },
-          "3": { "cout": 750000, "valeur": 30 }
+          "1": { "cout": 300000, "valeur": 15 }
+        }
+      },
+      "obsidienne": {
+        "argument": "obsidian",
+        "type": "OBSIDIAN",
+        "case": 16,
+        "icone": "OBSIDIAN",
+        "nom": "&8Renforcement de l'obsidienne",
+        "description": ["&7L'obsidienne du territoire résiste", "&7à plus d'explosions pendant les raids."],
+        "format-valeur": "+{value} coups",
+        "niveaux": {
+          "1": { "cout": 400000, "valeur": 2 }
+        }
+      },
+      "machine": {
+        "argument": "machine",
+        "type": "MACHINE",
+        "case": 22,
+        "icone": "ANVIL",
+        "nom": "&bMachine de renforcement",
+        "description": ["&7Permet de poser et d'utiliser", "&7la machine de renforcement", "&7sur le territoire de la faction."],
+        "format-valeur": "Débloquée",
+        "niveaux": {
+          "1": { "cout": 1000000, "valeur": 1 }
         }
       }
     }
+  },
+  "raid-obsidienne": {
+    "actif": true,
+    "rayon": 3,
+    "coups": { "OBSIDIAN": 4 },
+    "reinitialisation-minutes": 10,
+    "ignorer-dans-eau": true
   },
   "inactivite": {
     "actif": false,
