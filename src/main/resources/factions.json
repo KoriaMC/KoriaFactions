@@ -332,7 +332,7 @@
   "raid-obsidienne": {
     "actif": true,
     "rayon": 3,
-    "coups": { "OBSIDIAN": 4 },
+    "coups": { "OBSIDIAN": 4, "OBSIDIENNE_RENFORCEE": 8 },
     "reinitialisation-minutes": 10,
     "ignorer-dans-eau": true
   },
