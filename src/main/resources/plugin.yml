@@ -2,7 +2,7 @@ name: KoriaFactions
 version: ${project.version}
 main: fr.koriamc.factions.KoriaFactions
 author: KoriaMC
-description: ${project.description}
+description: "${project.description}"
 softdepend: [Vault, PlaceholderAPI]
 load: POSTWORLD
 
